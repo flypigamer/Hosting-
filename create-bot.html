@@ -18,17 +18,45 @@
     </div>
   </nav>
 
-  <main class="dashboard">
+  <main class="create-bot">
     <h1>Create Your Bot</h1>
 
-    <p>Upload your Discord bot files to get started.</p>
+    <p>Set up your Discord bot</p>
 
-    <input type="file">
+    <div class="form-box">
 
-    <br>
+      <label for="bot-name">Bot Name</label>
 
-    <a href="#" class="get-started">Upload Bot</a>
+      <input
+        type="text"
+        id="bot-name"
+        placeholder="Enter bot name"
+      >
+
+      <label for="bot-file">Bot Files</label>
+
+      <input
+        type="file"
+        id="bot-file"
+      >
+
+      <button onclick="createBot()">Create Bot</button>
+
+    </div>
   </main>
+
+  <script>
+    function createBot() {
+      const botName = document.getElementById("bot-name").value;
+
+      if (botName === "") {
+        alert("Please enter a bot name.");
+        return;
+      }
+
+      alert("Bot '" + botName + "' is ready to create! 🚀");
+    }
+  </script>
 
 </body>
 </html>
