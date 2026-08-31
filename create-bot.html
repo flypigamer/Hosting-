@@ -45,8 +45,8 @@
     </div>
   </main>
 
-  <script>
-  function createBot() {
+<script>
+  async function createBot() {
     const botName = document.getElementById("bot-name").value;
     const botFile = document.getElementById("bot-file").files[0];
 
@@ -60,13 +60,25 @@
       return;
     }
 
-    alert(
-      "Bot Name: " + botName +
-      "\nFile: " + botFile.name +
-      "\n\nReady to create! 🚀"
-    );
-  }
-  </script>
+    try {
+      const response = await fetch(
+        "https://flypi-hosting-backend.onrender.com/"
+      );
 
+      const result = await response.text();
+
+      alert(
+        "Backend Connected! 🚀\n\n" +
+        "Bot: " + botName + "\n" +
+        "File: " + botFile.name + "\n\n" +
+        result
+      );
+
+    } catch (error) {
+      alert("Backend connection failed ❌");
+      console.error(error);
+    }
+  }
+</script>
 </body>
 </html>
