@@ -44,7 +44,6 @@
 
     </div>
   </main>
-
 <script>
   async function createBot() {
     const botName = document.getElementById("bot-name").value;
@@ -56,27 +55,39 @@
     }
 
     if (!botFile) {
-      alert("Please select your bot file.");
+      alert("Please select a bot file.");
       return;
     }
 
+    const formData = new FormData();
+
+    formData.append("botFile", botFile);
+    formData.append("botName", botName);
+
     try {
       const response = await fetch(
-        "https://flypi-hosting-backend.onrender.com/"
+        "https://flypi-hosting-backend.onrender.com/upload",
+        {
+          method: "POST",
+          body: formData
+        }
       );
 
-      const result = await response.text();
+      const result = await response.json();
 
-      alert(
-        "Backend Connected! 🚀\n\n" +
-        "Bot: " + botName + "\n" +
-        "File: " + botFile.name + "\n\n" +
-        result
-      );
+      if (result.success) {
+        alert(
+          "Upload Successful! 🚀\n\n" +
+          "Bot: " + botName + "\n" +
+          "File: " + result.fileName
+        );
+      } else {
+        alert("Upload failed ❌");
+      }
 
     } catch (error) {
-      alert("Backend connection failed ❌");
       console.error(error);
+      alert("Server connection failed ❌");
     }
   }
 </script>
