@@ -46,16 +46,26 @@
   </main>
 
   <script>
-    function createBot() {
-      const botName = document.getElementById("bot-name").value;
+  function createBot() {
+    const botName = document.getElementById("bot-name").value;
+    const botFile = document.getElementById("bot-file").files[0];
 
-      if (botName === "") {
-        alert("Please enter a bot name.");
-        return;
-      }
-
-      alert("Bot '" + botName + "' is ready to create! 🚀");
+    if (botName === "") {
+      alert("Please enter a bot name.");
+      return;
     }
+
+    if (!botFile) {
+      alert("Please select your bot file.");
+      return;
+    }
+
+    alert(
+      "Bot Name: " + botName +
+      "\nFile: " + botFile.name +
+      "\n\nReady to create! 🚀"
+    );
+  }
   </script>
 
 </body>
