@@ -77,3 +77,36 @@ button {
   color: white;
   text-decoration: none;
 }
+.dashboard {
+  padding: 80px 7%;
+  text-align: center;
+}
+
+.dashboard h1 {
+  font-size: 45px;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 250px;
+  padding: 30px;
+  background: #15151c;
+  border: 1px solid #292933;
+  border-radius: 15px;
+}
+
+.card h2 {
+  font-size: 22px;
+}
+
+.card p {
+  margin-top: 12px;
+  font-size: 17px;
+}
