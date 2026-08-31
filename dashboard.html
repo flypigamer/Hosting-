@@ -49,15 +49,49 @@
     <a href="create-bot.html" class="get-started">Create Bot</a>
   </main>
   <script>
-  function startBot() {
-    document.getElementById("bot-status").textContent = "Running";
-    alert("Bot started! 🚀");
-  }
+  async function startBot() {
+  try {
+    const response = await fetch(
+      "https://flypi-hosting-backend.onrender.com/start",
+      {
+        method: "POST"
+      }
+    );
 
-  function stopBot() {
-    document.getElementById("bot-status").textContent = "Offline";
-    alert("Bot stopped.");
+    const result = await response.json();
+
+    if (result.success) {
+      document.getElementById("bot-status").textContent = "Running";
+    }
+
+    alert(result.message);
+
+  } catch (error) {
+    alert("Backend connection failed ❌");
   }
+}
+
+async function stopBot() {
+  try {
+    const response = await fetch(
+      "https://flypi-hosting-backend.onrender.com/stop",
+      {
+        method: "POST"
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      document.getElementById("bot-status").textContent = "Offline";
+    }
+
+    alert(result.message);
+
+  } catch (error) {
+    alert("Backend connection failed ❌");
+  }
+}
   </script>
 
 </body>
