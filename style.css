@@ -62,3 +62,18 @@ button {
   font-size: 18px;
   cursor: pointer;
 }
+.get-started {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 14px 30px;
+  background: #5865f2;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.get-started:hover {
+  color: white;
+  text-decoration: none;
+}
