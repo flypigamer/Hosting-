@@ -26,7 +26,7 @@
 
       <div class="card">
         <h2>🤖 My Bots</h2>
-        <p>0 Bots</p>
+        <p id="bot-count">0 Bots</p>
       </div>
 
       <div class="card">
@@ -36,13 +36,29 @@
 
       <div class="card">
         <h2>🟢 Status</h2>
-        <p>Ready</p>
+        <p id="bot-status">Offline</p>
       </div>
+      <div class="bot-controls">
 
-    </div>
+  <button onclick="startBot()">▶️ Start Bot</button>
+
+  <button onclick="stopBot()">⏹️ Stop Bot</button>
+
+      </div>
 
     <a href="create-bot.html" class="get-started">Create Bot</a>
   </main>
+  <script>
+  function startBot() {
+    document.getElementById("bot-status").textContent = "Running";
+    alert("Bot started! 🚀");
+  }
+
+  function stopBot() {
+    document.getElementById("bot-status").textContent = "Offline";
+    alert("Bot stopped.");
+  }
+  </script>
 
 </body>
 </html>
