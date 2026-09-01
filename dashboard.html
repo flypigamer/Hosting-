@@ -49,6 +49,27 @@
     <a href="create-bot.html" class="get-started">Create Bot</a>
   </main>
   <script>
+
+  async function loadBots() {
+  try {
+    const response = await fetch(
+      "https://flypi-hosting-backend.onrender.com/bots"
+    );
+
+    const result = await response.json();
+
+    document.getElementById("bot-count").textContent =
+      result.bots.length + " Bots";
+
+  } catch (error) {
+    console.error(error);
+    document.getElementById("bot-count").textContent =
+      "Unable to load bots";
+  }
+}
+
+loadBots();
+    
   async function startBot() {
   try {
     const response = await fetch(
