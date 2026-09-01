@@ -9,111 +9,131 @@
 
 <body>
 
-  <nav>
-    <div class="logo">🚀 Flypi Hosting</div>
+<nav>
+  <div class="logo">🚀 Flypi Hosting</div>
 
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="dashboard.html">Dashboard</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="dashboard.html">Dashboard</a>
+  </div>
+</nav>
+
+<main class="dashboard">
+
+  <h1>Dashboard</h1>
+  <p>Manage your Discord bots from here.</p>
+
+  <div class="cards">
+
+    <div class="card">
+      <h2>🤖 My Bots</h2>
+      <p id="bot-count">Loading...</p>
     </div>
-  </nav>
 
-  <main class="dashboard">
-    <h1>Dashboard</h1>
-    <p>Manage your Discord bots from here.</p>
+    <div id="bot-list"></div>
 
-    <div class="cards">
+  </div>
 
-      <div class="card">
-        <h2>🤖 My Bots</h2>
-        <p id="bot-count">0 Bots</p>
-      </div>
+  <a href="create-bot.html" class="get-started">
+    ➕ Create Bot
+  </a>
 
-      <div class="card">
-        <h2>💾 Storage</h2>
-        <p>0 MB Used</p>
-      </div>
+</main>
 
-      <div class="card">
-        <h2>🟢 Status</h2>
-        <p id="bot-status">Offline</p>
-      </div>
-      <div class="bot-controls">
+<script>
 
-  <button onclick="startBot()">▶️ Start Bot</button>
+async function loadBots() {
 
-  <button onclick="stopBot()">⏹️ Stop Bot</button>
-
-      </div>
-
-    <a href="create-bot.html" class="get-started">Create Bot</a>
-  </main>
-  <script>
-
-  async function loadBots() {
   try {
+
     const response = await fetch(
       "https://flypi-hosting-backend.onrender.com/bots"
     );
 
     const result = await response.json();
 
-    document.getElementById("bot-count").textContent =
-      result.bots.length + " Bots";
-
-  } catch (error) {
-    console.error(error);
-    document.getElementById("bot-count").textContent =
-      "Unable to load bots";
-  }
-}
-
-loadBots();
-    
-  async function startBot() {
-  try {
-    const response = await fetch(
-      "https://flypi-hosting-backend.onrender.com/start",
-      {
-        method: "POST"
-      }
-    );
-
-    const result = await response.json();
-
     if (result.success) {
-      document.getElementById("bot-status").textContent = "Running";
+
+      document.getElementById("bot-count").textContent =
+        result.bots.length + " Bots";
+
+      const botList = document.getElementById("bot-list");
+
+      botList.innerHTML = "";
+
+      result.bots.forEach((bot) => {
+
+        const botCard = document.createElement("div");
+
+        botCard.className = "card";
+
+        botCard.innerHTML = `
+          <h2>🤖 ${bot.name}</h2>
+          <p>📦 ${bot.fileName}</p>
+          <p>🔴 Offline</p>
+
+          <button onclick="startBot()">
+            ▶️ Start Bot
+          </button>
+
+          <button onclick="stopBot()">
+            ⏹️ Stop Bot
+          </button>
+        `;
+
+        botList.appendChild(botCard);
+
+      });
+
     }
 
-    alert(result.message);
-
   } catch (error) {
-    alert("Backend connection failed ❌");
+
+    console.error(error);
+
+    document.getElementById("bot-count").textContent =
+      "Connection failed ❌";
+
   }
+
 }
+
+
+async function startBot() {
+
+  const response = await fetch(
+    "https://flypi-hosting-backend.onrender.com/start",
+    {
+      method: "POST"
+    }
+  );
+
+  const result = await response.json();
+
+  alert(result.message);
+
+}
+
 
 async function stopBot() {
-  try {
-    const response = await fetch(
-      "https://flypi-hosting-backend.onrender.com/stop",
-      {
-        method: "POST"
-      }
-    );
 
-    const result = await response.json();
-
-    if (result.success) {
-      document.getElementById("bot-status").textContent = "Offline";
+  const response = await fetch(
+    "https://flypi-hosting-backend.onrender.com/stop",
+    {
+      method: "POST"
     }
+  );
 
-    alert(result.message);
+  const result = await response.json();
 
-  } catch (error) {
-    alert("Backend connection failed ❌");
-  }
+  alert(result.message);
+
 }
-  </script>
+
+
+loadBots();
+
+</script>
 
 </body>
 </html>
