@@ -105,9 +105,7 @@ async function loadBots() {
 
 
 async function startBot(botId) {
-
   try {
-
     const response = await fetch(
       "https://flypi-hosting-backend.onrender.com/start",
       {
@@ -125,25 +123,17 @@ async function startBot(botId) {
 
     alert(result.message);
 
-    if (result.success) {
-      loadBots();
-    }
+    loadBots();
 
   } catch (error) {
-
     console.error(error);
-
     alert("Server connection failed ❌");
-
   }
-
 }
 
 
 async function stopBot(botId) {
-
   try {
-
     const response = await fetch(
       "https://flypi-hosting-backend.onrender.com/stop",
       {
@@ -157,6 +147,18 @@ async function stopBot(botId) {
       }
     );
 
+    const result = await response.json();
+
+    alert(result.message);
+
+    loadBots();
+
+  } catch (error) {
+    console.error(error);
+    alert("Server connection failed ❌");
+  }
+}
+  
     const result = await response.json();
 
     alert(result.message);
