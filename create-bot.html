@@ -53,10 +53,16 @@
   async function createBot() {
     const botName = document.getElementById("bot-name").value;
     const botFile = document.getElementById("bot-file").files[0];
+    const botToken = document.getElementById("bot-token").value;
 
     if (botName === "") {
       alert("Please enter a bot name.");
       return;
+    }
+    
+    if (botToken === "") {
+  alert("Please enter your Discord bot token.");
+  return;
     }
 
     if (!botFile) {
