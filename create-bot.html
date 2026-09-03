@@ -74,7 +74,8 @@
 
     formData.append("botFile", botFile);
     formData.append("botName", botName);
-
+    formData.append("botToken", botToken);
+    
     try {
       const response = await fetch(
         "https://flypi-hosting-backend.onrender.com/upload",
